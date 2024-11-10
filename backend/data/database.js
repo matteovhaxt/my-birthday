@@ -7,8 +7,9 @@ const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Error opening database:', err);
         return;
+    } else {
+        console.log('Connected to SQLite database');
     }
-    console.log('Connected to SQLite database');
 
     db.run(`
         CREATE TABLE IF NOT EXISTS invites (
@@ -16,6 +17,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
             name TEXT NOT NULL,
             email TEXT UNIQUE,
             phone TEXT UNIQUE,
+            accepted BOOLEAN DEFAULT FALSE,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     `, (err) => {
