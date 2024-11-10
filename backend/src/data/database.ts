@@ -1,9 +1,12 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+import sqlite3 from 'sqlite3';
+import path from 'path';
 
-const dbPath = path.resolve(__dirname, './database.sqlite');
+const dbPath = path.resolve(
+  new URL('.', import.meta.url).pathname,
+  './database.sqlite'
+);
 
-const db = new sqlite3.Database(dbPath, (err) => {
+export const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Error opening database:', err);
         return;
@@ -28,5 +31,3 @@ const db = new sqlite3.Database(dbPath, (err) => {
         }
     });
 });
-
-module.exports = db;

@@ -1,11 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../../../data/database.js');
+import { db } from '../../data/database.js';
+import { Router, Request, Response } from 'express';
 
-router.get('/', (req, res) => {
+export const router = Router();
+
+router.get('/', (req: Request, res: Response) => {
   console.log('Fetching invites');
 
-  db.all(`SELECT * FROM invites`, (err, rows) => {
+  db.all(`SELECT * FROM invites`, (err: any, rows: any) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: err.message });
@@ -15,11 +16,11 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req: Request, res: Response): Promise<void> => {
   console.log('Creating invite', req.body);
 
   if (!req.body.name || !req.body.email || !req.body.phone) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    res.status(400).json({ error: 'Missing required fields' });
   }
 
   db.run(`INSERT INTO invites (name, email, phone) VALUES (?, ?, ?)`, [req.body.name, req.body.email, req.body.phone], (err) => {
@@ -31,5 +32,3 @@ router.post('/', (req, res) => {
     }
   });
 });
-
-module.exports = router;
