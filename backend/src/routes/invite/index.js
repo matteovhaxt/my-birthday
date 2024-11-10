@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../data/database.js');
+const db = require('../../../data/database.js');
 
 router.get('/', (req, res) => {
   console.log('Fetching invites');
