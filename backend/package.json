@@ -7,7 +7,10 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon --exec node --loader ts-node/esm src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:generate": "npx prisma generate --schema=./src/data/schema.prisma",
+    "db:migrate": "npx prisma migrate dev --schema=./src/data/schema.prisma",
+    "db:deploy": "npx prisma migrate deploy --schema=./src/data/schema.prisma && npm run db:generate"
   },
   "keywords": [],
   "author": "",
