@@ -1,19 +1,17 @@
-import { db } from '../../data/database.js';
 import { Router, Request, Response } from 'express';
+import { db } from '../../data/index.js';
 
 export const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
   console.log('Fetching invites');
 
-  db.all(`SELECT * FROM invites`, (err: any, rows: any) => {
-    if (err) {
-      console.error(err);
+  db.invites.findMany().then((invites) => {
+    res.json(invites);
+  }).catch((err) => {
+    console.error(err);
       res.status(500).json({ error: err.message });
-    } else {
-      res.json(rows);
-    }
-  });
+    });
 });
 
 router.post('/', async (req: Request, res: Response): Promise<void> => {
@@ -23,12 +21,15 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
     res.status(400).json({ error: 'Missing required fields' });
   }
 
-  db.run(`INSERT INTO invites (name, email, phone) VALUES (?, ?, ?)`, [req.body.name, req.body.email, req.body.phone], (err) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: err.message });
-    } else {
-      res.json({ message: 'Invite sent' });
+  db.invites.create({
+    data: {
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone
     }
+  }).then(() => {
+    res.json({ message: 'Invite sent' });
+  }).catch((err) => {
+    res.status(500).json({ error: err.message });
   });
 });

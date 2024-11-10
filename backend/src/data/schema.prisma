@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.sqlite"
+}
+
+model invites {
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String?   @unique(map: "sqlite_autoindex_invites_1")
+  phone      String?   @unique(map: "sqlite_autoindex_invites_2")
+  accepted   Boolean?  @default(false)
+  created_at DateTime? @default(now())
+}
+
+model sets {
+  id         Int       @id @default(autoincrement())
+  alias      String
+  name       String
+  style      String
+  timeslot   DateTime
+  created_at DateTime? @default(now())
+}
