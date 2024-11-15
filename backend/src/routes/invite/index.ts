@@ -18,6 +18,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   console.log('Creating invite', req.body);
 
   if (!req.body.name || !req.body.email || !req.body.phone) {
+    console.log('Missing required fields');
     res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -30,6 +31,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   }).then(() => {
     res.json({ message: 'Invite sent' });
   }).catch((err) => {
+    console.error(err);
     res.status(500).json({ error: err.message });
   });
 });

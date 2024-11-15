@@ -20,6 +20,10 @@ document.getElementById('invite-form').addEventListener('submit', async (e) => {
         
         messageDiv.textContent = data.message;
         messageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 3000);
     } catch (error) {
         console.error(error);
         messageDiv.textContent = 'An error occurred';

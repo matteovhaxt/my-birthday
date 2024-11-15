@@ -10,8 +10,8 @@ datasource db {
 model invites {
   id         Int       @id @default(autoincrement())
   name       String
-  email      String?   @unique(map: "sqlite_autoindex_invites_1")
-  phone      String?   @unique(map: "sqlite_autoindex_invites_2")
+  email      String?   @unique()
+  phone      String?   @unique()
   accepted   Boolean?  @default(false)
   created_at DateTime? @default(now())
 }
