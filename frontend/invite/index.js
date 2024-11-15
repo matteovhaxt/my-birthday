@@ -22,7 +22,7 @@ document.getElementById('invite-form').addEventListener('submit', async (e) => {
         messageDiv.style.display = 'block';
 
         setTimeout(() => {
-            window.location.href = '/frontend';
+            window.location.href = '/my-birthday/frontend';
         }, 3000);
     } catch (error) {
         console.error(error);
