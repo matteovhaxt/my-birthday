@@ -4,7 +4,7 @@ document.getElementById('invite-form').addEventListener('submit', async (e) => {
     const messageDiv = document.getElementById('message');
     
     try {
-        const response = await fetch('http://localhost:3000/invites', {
+        const response = await fetch('https://my-birthday.onrender.com/invites', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ document.getElementById('invite-form').addEventListener('submit', async (e) => {
         messageDiv.style.display = 'block';
 
         setTimeout(() => {
-            window.location.href = '/';
+            window.location.href = '/frontend';
         }, 3000);
     } catch (error) {
         console.error(error);
