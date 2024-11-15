@@ -20,6 +20,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   if (!req.body.name || !req.body.email || !req.body.phone) {
     console.log('Missing required fields');
     res.status(400).json({ error: 'Missing required fields' });
+    return;
   }
 
   db.invites.create({
